@@ -52,13 +52,10 @@ public class MainActivity extends AppCompatActivity {
         setCounterButton.setOnClickListener(v -> {
             String inputText = setCounterInput.getText().toString();
             if (!inputText.isEmpty()) {
-                try {
-                    _counter = Integer.parseInt(inputText);
-                    updateCounterDisplay();
-                    setCounterInput.setText("");
-                } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Wprowadź poprawną liczbę", Toast.LENGTH_SHORT).show();
-                }
+            _counter = Integer.parseInt(inputText);
+            updateCounterDisplay();
+            setCounterInput.setText("");
+
             } else {
                 Toast.makeText(this, "Pole nie może być puste", Toast.LENGTH_SHORT).show();
             }
