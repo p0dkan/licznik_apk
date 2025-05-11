@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int _counter = 0;
     private TextView counterText;
-    private Button incrementButton, decrementButton, resetButton, setCounterButton;
+    private Button incrementButton, decrementButton, resetButton, setCounterButton, setCounterDialogButton;
+    private EditText setCounterInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         decrementButton = findViewById(R.id.decrementButton);
         resetButton = findViewById(R.id.resetButton);
         setCounterButton = findViewById(R.id.setCounterButton);
+        setCounterInput = findViewById(R.id.setCounterInput);
+
+
+        setCounterDialogButton = findViewById(R.id.setCounterButtonDialog);
 
         updateCounterDisplay();
 
@@ -44,7 +49,22 @@ public class MainActivity extends AppCompatActivity {
             updateCounterDisplay();
         });
 
-        setCounterButton.setOnClickListener(v -> showInputDialog());
+        setCounterButton.setOnClickListener(v -> {
+            String inputText = setCounterInput.getText().toString();
+            if (!inputText.isEmpty()) {
+                try {
+                    _counter = Integer.parseInt(inputText);
+                    updateCounterDisplay();
+                    setCounterInput.setText("");
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, "Wprowadź poprawną liczbę", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Pole nie może być puste", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        setCounterDialogButton.setOnClickListener(v -> showInputDialog());
     }
 
     private void updateCounterDisplay() {
@@ -60,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
+
         _counter = Integer.parseInt(input.getText().toString());
         updateCounterDisplay();
 
