@@ -60,12 +60,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
-            try {
-                _counter = Integer.parseInt(input.getText().toString());
-                updateCounterDisplay();
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Nieprawidłowa liczba!", Toast.LENGTH_SHORT).show();
-            }
+        _counter = Integer.parseInt(input.getText().toString());
+        updateCounterDisplay();
+
         });
 
         builder.setNegativeButton("Anuluj", (dialog, which) -> dialog.cancel());
